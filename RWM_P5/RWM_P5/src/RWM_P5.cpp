@@ -35,7 +35,7 @@ void RWM_P5::createScene(void)
 
 	const hkReal radius = 1.0f;
 	const hkReal sphereMass = 15.0f;
-	hkVector4 position( -125.0f, 0.0f, 0.0f );
+	hkVector4 position( 0.0f, 100.0f, 0.0f );
 
 	
 	//set up physics properties of havok object
@@ -57,9 +57,9 @@ void RWM_P5::createScene(void)
 	
 	info.m_shape->removeReference();
 
-	hkVector4 vel(30.0f,10.0f, 0.0f );
+	hkVector4 vel(0.0f,0.0f, 0.0f );
 	ball->setLinearVelocity( vel );
-	hkVector4 angvel(-0.9f,0.0f, 0.0f,1.0 );
+	hkVector4 angvel(0.0f,0.0f, 0.0f,1.0 );
 	ball->setAngularVelocity(angvel);
 
 	physics.GetPhysicsWorld()->addEntity( ball );
@@ -75,12 +75,45 @@ void RWM_P5::createScene(void)
 	headNode->setPosition(position(0),position(1),position(2));
 	headNode->setScale(scalefactor,scalefactor,scalefactor);
 
+	hkVector4 floorBox(200.0f, 0.1f, 200.0f);
+	hkVector4 floorPosition(0.0f, 0.0f, 0.0f);
+	hkpConvexShape * shape = new hkpBoxShape(floorBox, 0);
+
+	hkpRigidBodyCinfo floorInfo;
+	floorInfo.m_shape = shape;
+	floorInfo.m_motionType = hkpMotion::MOTION_FIXED;
+	floorInfo.m_position = floorPosition;
+	floorInfo.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
+	floorInfo.m_restitution = 1.0f;
+	floorInfo.m_friction = 1.0f;
+
+	floor = new hkpRigidBody(floorInfo);
+	physics.GetPhysicsWorld()->addEntity(floor);
+	shape->removeReference();
+
+	Ogre::MeshPtr p =Ogre::MeshManager::getSingleton().createPlane("GroundPlane", 
+		Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, 
+		Ogre::Plane(Ogre::Vector3(0.0,1.0,0.0),
+			Ogre::Vector3(floorPosition(0),floorPosition(1),floorPosition(2)))
+		,400,400,20,20,true, 1,1.0f,1.0f,Ogre::Vector3::UNIT_X);
+
+	Ogre::SceneNode* planeNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+    Ogre::Entity* entGround = mSceneMgr->createEntity("Viewer_ZXPlane","GroundPlane");
+	entGround->setMaterialName("Examples/Rockwall");
+    entGround->setCastShadows(false);
+	
+	planeNode->attachObject(entGround);
+
+
     // Set ambient light
     mSceneMgr->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
 
     // Create a light
     Ogre::Light* l = mSceneMgr->createLight("MainLight");
     l->setPosition(20,80,50);
+
+	// Create the player
+	player = new Player(Ogre::Vector3(10.0f, 100.0f, 0.0f), physics.GetPhysicsWorld(), mSceneMgr);
 }
 
 

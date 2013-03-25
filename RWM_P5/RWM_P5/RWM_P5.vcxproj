@@ -119,6 +119,7 @@
     <ClInclude Include="include\BaseApplication.h" />
     <ClInclude Include="include\Havok.h" />
     <ClInclude Include="include\Physics.h" />
+    <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\RWM_P5.h" />
     <ClInclude Include="include\stdafx.h" />
     <ClInclude Include="res\Resource.h" />
@@ -126,6 +127,7 @@
   <ItemGroup>
     <ClCompile Include="src\BaseApplication.cpp" />
     <ClCompile Include="src\Physics.cpp" />
+    <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\RWM_P5.cpp" />
     <ClCompile Include="src\stdafx.cpp" />
   </ItemGroup>

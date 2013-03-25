@@ -27,7 +27,18 @@
 #include <Physics/Collide/Dispatch/hkpAgentRegisterUtil.h>					
 
 #include <Physics/Collide/Query/CastUtil/hkpWorldRayCastInput.h>			
-#include <Physics/Collide/Query/CastUtil/hkpWorldRayCastOutput.h>			
+#include <Physics/Collide/Query/CastUtil/hkpWorldRayCastOutput.h>
+
+// Character Control
+#include <Physics/Utilities/CharacterControl/CharacterRigidBody/hkpCharacterRigidBody.h>
+#include <Physics/Utilities/CharacterControl/CharacterRigidBody/hkpCharacterRigidBodyListener.h>
+// character proxy
+#include <Physics/Utilities/CharacterControl/CharacterProxy/hkpCharacterProxy.h>
+// state machine
+#include <Physics/Utilities/CharacterControl/StateMachine/hkpDefaultCharacterStates.h>
+
+// Capsule shape
+#include <Physics/Collide/Shape/Convex/Capsule/hkpCapsuleShape.h>
 
 #include <Physics/Dynamics/World/hkpWorld.h>								
 #include <Physics/Dynamics/Entity/hkpRigidBody.h>							
