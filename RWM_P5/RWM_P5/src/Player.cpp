@@ -15,8 +15,8 @@ Player::Player(Vector3 spawnLocation, hkpWorld * world, SceneManager * sceneMgr)
 	mWorld->lock();
 
 	// Setup Havok stuff
-	hkVector4 vertexA(0, 0, 0.4f);
-	hkVector4 vertexB(0, 0, -0.4f);
+	hkVector4 vertexA(0, 0.4f, 0);
+	hkVector4 vertexB(0, -0.4f, 0);
 
 	mStandShape = new hkpCapsuleShape(vertexA, vertexB, 0.6f);
 
@@ -69,18 +69,6 @@ Player::Player(Vector3 spawnLocation, hkpWorld * world, SceneManager * sceneMgr)
 	mCurrentAngle = HK_REAL_PI;
 
 	mWorld->unlock();
-
-	//Setup Ogre stuff
-	mMesh = mSceneMgr->createEntity("PlayerMesh", "ogrehead.mesh");
-
-    mNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("PlayerNode");
-    mNode->attachObject(mMesh);
-
-	float r = mMesh->getBoundingRadius();
-	float scalefactor=1.5*1.0/r;
-
-	mNode->setPosition(spawnLocation);
-	mNode->setScale(scalefactor,scalefactor,scalefactor);
 }
 
 void Player::update(int UD, int LR, bool jump, Camera * cam, float dt) {
@@ -125,10 +113,5 @@ void Player::update(int UD, int LR, bool jump, Camera * cam, float dt) {
 	mWorld->unlock();
 
 	//Update the camera
-	cam->setPosition(pos(0), pos(1) + 2, pos(2));
-
-	// Update the scene node
-	mNode->setPosition(mCharacterBody->getRigidBody()->getPosition()(0),
-						mCharacterBody->getRigidBody()->getPosition()(1),
-						mCharacterBody->getRigidBody()->getPosition()(2));
+	cam->setPosition(pos(0), pos(1) + 1.0, pos(2));
 }

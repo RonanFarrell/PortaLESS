@@ -57,21 +57,33 @@ void RWM_P5::createScene(void)
 
 	Ogre::SceneNode* planeNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
     Ogre::Entity* entGround = mSceneMgr->createEntity("Viewer_ZXPlane","GroundPlane");
-	entGround->setMaterialName("Examples/Rockwall");
-    entGround->setCastShadows(false);
+	entGround->setMaterialName("Examples/hashB03B52");
+    entGround->setCastShadows(true);
 	
 	planeNode->attachObject(entGround);
 
 
     // Set ambient light
-    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
+    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.0, 0.0, 0.0));
+	mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_MODULATIVE);
 
     // Create a light
     Ogre::Light* l = mSceneMgr->createLight("MainLight");
-    l->setPosition(20,80,50);
+    l->setPosition(0,30,10);
+	l->setCastShadows(true);
 
 	// Create the player
-	player = new Player(Ogre::Vector3(10.0f, 100.0f, 0.0f), physics.GetPhysicsWorld(), mSceneMgr);
+	player = new Player(Ogre::Vector3(10.0f, 5.0f, 10.0f), physics.GetPhysicsWorld(), mSceneMgr);
+
+	buildingBlocks.push_back(new BuildingBlock(Vector3(0, 0.5, 0), Vector3(2.1, 1, 2.1), "Examples/hash6BC34B", physics.GetPhysicsWorld(), mSceneMgr));
+	buildingBlocks.push_back(new BuildingBlock(Vector3(2, 1.0, 0), Vector3(2.1, 2, 2.1), "Examples/hash6BC34B", physics.GetPhysicsWorld(), mSceneMgr));
+	buildingBlocks.push_back(new BuildingBlock(Vector3(4, 1.5, 0), Vector3(2.1, 3, 2.1), "Examples/hash6BC34B", physics.GetPhysicsWorld(), mSceneMgr));
+	buildingBlocks.push_back(new BuildingBlock(Vector3(6, 2.0, 0), Vector3(2.1, 4, 2.1), "Examples/hash6BC34B", physics.GetPhysicsWorld(), mSceneMgr));
+
+	buildingBlocks.push_back(new BuildingBlock(Vector3(8, 3.5, 0), Vector3(2.1, 1, 2.1), "Examples/hash6BC34B", physics.GetPhysicsWorld(), mSceneMgr));
+	buildingBlocks.push_back(new BuildingBlock(Vector3(10, 3.0, 0), Vector3(2.1, 2, 2.1), "Examples/hash6BC34B", physics.GetPhysicsWorld(), mSceneMgr));
+	buildingBlocks.push_back(new BuildingBlock(Vector3(12, 2.5, 0), Vector3(2.1, 3, 2.1), "Examples/hash6BC34B", physics.GetPhysicsWorld(), mSceneMgr));
+	buildingBlocks.push_back(new BuildingBlock(Vector3(14, 2.0, 0), Vector3(2.1, 4, 2.1), "Examples/hash6BC34B", physics.GetPhysicsWorld(), mSceneMgr));
 }
 
 
