@@ -31,7 +31,6 @@ public:
     virtual void go(void);
 
 	Physics physics;
-	hkpRigidBody * ball;
 	hkpRigidBody * floor;
 
 	Player * player;

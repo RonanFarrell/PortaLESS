@@ -32,9 +32,11 @@ public:
 	Player(Vector3 spawnLocation, hkpWorld * world, SceneManager * sceneMgr);
 	~Player();
 
-	void update(int UD, int LR, bool jump, float dt);
+	void update(int UD, int LR, bool jump, Camera * cam, float dt);
 
 	// Accessors
 	hkpCharacterContext * getCharacterContext() { return mCharacterContext; };
 	hkpCharacterRigidBody * getCharacterRigidBody() { return mCharacterBody; };
+
+	void setCurrrentAngle(hkReal angle) { mCurrentAngle = angle; };
 };

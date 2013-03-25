@@ -99,8 +99,8 @@ void BaseApplication::createCamera(void)
     // Position it at 500 in Z direction
     mCamera->setPosition(Ogre::Vector3(0,100,80));
     // Look back along -Z
-    mCamera->lookAt(Ogre::Vector3(0,0,-300));
-    mCamera->setNearClipDistance(5);
+    mCamera->lookAt(Ogre::Vector3(0,0,-3));
+    mCamera->setNearClipDistance(1);
 
     mCameraMan = new OgreBites::SdkCameraMan(mCamera);   // create a default camera controller
 }
@@ -265,18 +265,9 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 
 	physics.Simulate(evt.timeSinceLastFrame);
 
-	Ogre::SceneNode* headNode = mSceneMgr->getSceneNode("Head");
-
-	hkVector4 p;
-	p = ball->getPosition();
-	Ogre::Vector3 pos(p(0), p(1), p(2));
-	headNode->setPosition(pos);
-
-	// Move player
-	player->update(UD, LR, jump, evt.timeSinceLastFrame);
+	player->setCurrrentAngle((hkReal)mCamera->getOrientation().getYaw().valueRadians());
+	player->update(UD, LR, jump, mCamera, evt.timeSinceLastFrame);
 	jump = false;
-	
-	
 
     //Need to capture/update each device
     mKeyboard->capture();
@@ -392,40 +383,40 @@ bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
         mShutDown = true;
     }
 
-	if (arg.key == OIS::KC_I) {
-		UD = 1;
-	} else if (arg.key == OIS::KC_K) {
+	if (arg.key == OIS::KC_W || arg.key == OIS::KC_UP) {
 		UD = -1;
+	} else if (arg.key == OIS::KC_S || arg.key == OIS::KC_DOWN) {
+		UD = 1;
 	}
 
-	if (arg.key == OIS::KC_L) {
-		LR = 1;
-	} else if (arg.key == OIS::KC_J) {
+	if (arg.key == OIS::KC_D || arg.key == OIS::KC_RIGHT) {
 		LR = -1;
+	} else if (arg.key == OIS::KC_A || arg.key == OIS::KC_LEFT) {
+		LR = 1;
 	}
 
 	if (arg.key == OIS::KC_SPACE) {
 		jump = true;
 	}
 
-    mCameraMan->injectKeyDown(arg);
+    //mCameraMan->injectKeyDown(arg);
     return true;
 }
 
 bool BaseApplication::keyReleased( const OIS::KeyEvent &arg )
 {
-	if (arg.key == OIS::KC_I) {
+	if (arg.key == OIS::KC_W || arg.key == OIS::KC_UP) {
 		UD = 0;
-	} else if (arg.key == OIS::KC_K) {
+	} else if (arg.key == OIS::KC_S || arg.key == OIS::KC_DOWN) {
 		UD = 0;
 	}
 
-	if (arg.key == OIS::KC_L) {
+	if (arg.key == OIS::KC_D || arg.key == OIS::KC_RIGHT) {
 		LR = 0;
-	} else if (arg.key == OIS::KC_J) {
+	} else if (arg.key == OIS::KC_A || arg.key == OIS::KC_LEFT) {
 		LR = 0;
 	}
-    mCameraMan->injectKeyUp(arg);
+    //mCameraMan->injectKeyUp(arg);
     return true;
 }
 
@@ -433,20 +424,21 @@ bool BaseApplication::mouseMoved( const OIS::MouseEvent &arg )
 {
     if (mTrayMgr->injectMouseMove(arg)) return true;
     mCameraMan->injectMouseMove(arg);
+
     return true;
 }
 
 bool BaseApplication::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
     if (mTrayMgr->injectMouseDown(arg, id)) return true;
-    mCameraMan->injectMouseDown(arg, id);
+    //mCameraMan->injectMouseDown(arg, id);
     return true;
 }
 
 bool BaseApplication::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
     if (mTrayMgr->injectMouseUp(arg, id)) return true;
-    mCameraMan->injectMouseUp(arg, id);
+    //mCameraMan->injectMouseUp(arg, id);
     return true;
 }
 

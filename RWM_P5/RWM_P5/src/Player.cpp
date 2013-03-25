@@ -83,11 +83,13 @@ Player::Player(Vector3 spawnLocation, hkpWorld * world, SceneManager * sceneMgr)
 	mNode->setScale(scalefactor,scalefactor,scalefactor);
 }
 
-void Player::update(int UD, int LR, bool jump, float dt) {
+void Player::update(int UD, int LR, bool jump, Camera * cam, float dt) {
 	if (dt <= 0)
 		return;
 
 	mWorld->lock();
+
+	hkVector4 pos = mCharacterBody->getRigidBody()->getPosition();
 
 	mCurrentOrientation.setAxisAngle(hkVector4(0, 1, 0), mCurrentAngle);
 
@@ -112,7 +114,7 @@ void Player::update(int UD, int LR, bool jump, float dt) {
 
 		input.m_characterGravity.set(0, -16, 0);
 		input.m_velocity = mCharacterBody->getRigidBody()->getLinearVelocity();
-		input.m_position = mCharacterBody->getRigidBody()->getPosition();
+		input.m_position = pos;
 
 		mCharacterBody->checkSupport(stepInfo, input.m_surfaceInfo);
 	}
@@ -122,6 +124,10 @@ void Player::update(int UD, int LR, bool jump, float dt) {
 
 	mWorld->unlock();
 
+	//Update the camera
+	cam->setPosition(pos(0), pos(1) + 2, pos(2));
+
+	// Update the scene node
 	mNode->setPosition(mCharacterBody->getRigidBody()->getPosition()(0),
 						mCharacterBody->getRigidBody()->getPosition()(1),
 						mCharacterBody->getRigidBody()->getPosition()(2));

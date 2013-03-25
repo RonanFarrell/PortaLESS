@@ -33,48 +33,6 @@ void RWM_P5::createScene(void)
 {
 	physics.SetUp();
 
-	const hkReal radius = 1.0f;
-	const hkReal sphereMass = 15.0f;
-	hkVector4 position( 0.0f, 100.0f, 0.0f );
-
-	
-	//set up physics properties of havok object
-	hkpRigidBodyCinfo info;//rigidbody class info; sets propertires of rigid body
-	hkMassProperties massProperties;
-	hkpInertiaTensorComputer::computeSphereVolumeMassProperties(
-		radius, sphereMass, massProperties);
-
-	info.m_mass = massProperties.m_mass;
-	info.m_centerOfMass  = massProperties.m_centerOfMass;
-	info.m_inertiaTensor = massProperties.m_inertiaTensor;
-	info.m_shape = new hkpSphereShape( radius );
-	info.m_position=position;
-	info.m_motionType  = hkpMotion::MOTION_SPHERE_INERTIA;
-
-	info.m_qualityType = HK_COLLIDABLE_QUALITY_BULLET;//for fast objects
-
-	ball = new hkpRigidBody( info );
-	
-	info.m_shape->removeReference();
-
-	hkVector4 vel(0.0f,0.0f, 0.0f );
-	ball->setLinearVelocity( vel );
-	hkVector4 angvel(0.0f,0.0f, 0.0f,1.0 );
-	ball->setAngularVelocity(angvel);
-
-	physics.GetPhysicsWorld()->addEntity( ball );
-
-    Ogre::Entity* ogreHead = mSceneMgr->createEntity("Head", "ogrehead.mesh");
-
-    Ogre::SceneNode* headNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("Head");
-    headNode->attachObject(ogreHead);
-
-	float r=ogreHead->getBoundingRadius();
-	float scalefactor=1.5*radius/r;
-
-	headNode->setPosition(position(0),position(1),position(2));
-	headNode->setScale(scalefactor,scalefactor,scalefactor);
-
 	hkVector4 floorBox(200.0f, 0.1f, 200.0f);
 	hkVector4 floorPosition(0.0f, 0.0f, 0.0f);
 	hkpConvexShape * shape = new hkpBoxShape(floorBox, 0);
