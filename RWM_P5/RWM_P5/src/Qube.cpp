@@ -57,3 +57,16 @@ void Qube::update() {
 	Quaternion oOrientation(angle, oAxis);
 	mNode->setOrientation(oOrientation);
 }
+
+void Qube::convertToHeavy() {
+	mMesh->setMaterialName("Examples/CubeHeavy");
+	mBody->setGravityFactor(1);
+	mBody->setMass(1000.0f);
+	mBody->setRestitution(0.0f);
+}
+
+void Qube::convertToFloaty() {
+	mMesh->setMaterialName("Examples/CubeFloaty");
+	mBody->setGravityFactor(0);
+	mBody->setMass(100.0f);
+}

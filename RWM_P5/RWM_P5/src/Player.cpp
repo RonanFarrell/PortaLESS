@@ -70,6 +70,7 @@ Player::Player(Vector3 spawnLocation, hkpWorld * world, SceneManager * sceneMgr)
 
 	mGravityGun = new hkpGravityGun();
 	mGravityGun->m_throwVelocity = 5.0f;
+	mGravityGun->m_maxMassOfObjectPicked = 101.0f;
 
 	mWorld->unlock();
 }

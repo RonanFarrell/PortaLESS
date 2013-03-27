@@ -7,7 +7,7 @@ static int numQubes = 0;
 class Qube {
 private:
 	// Havok stuff
-	
+	hkpRigidBody * mBody;
 	hkpWorld * mWorld;
 	hkVector4 mPosition;
 	hkQuaternion mOrientation;
@@ -23,5 +23,6 @@ public:
 
 	void update();
 
-	hkpRigidBody * mBody;
+	void convertToHeavy();
+	void convertToFloaty();
 };

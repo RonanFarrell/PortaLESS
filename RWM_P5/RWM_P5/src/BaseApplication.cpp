@@ -408,6 +408,13 @@ bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
 		jump = true;
 	}
 
+	if (arg.key == OIS::KC_1) {
+		qube->convertToHeavy();
+	}
+	if (arg.key == OIS::KC_2) {
+		qube->convertToFloaty();
+	}
+
     //mCameraMan->injectKeyDown(arg);
     return true;
 }
