@@ -42,7 +42,7 @@ void RWM_P5::createScene(void)
 	floorInfo.m_motionType = hkpMotion::MOTION_FIXED;
 	floorInfo.m_position = floorPosition;
 	floorInfo.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
-	floorInfo.m_restitution = 1.0f;
+	floorInfo.m_restitution = 0.1f;
 	floorInfo.m_friction = 1.0f;
 
 	floor = new hkpRigidBody(floorInfo);
@@ -73,7 +73,8 @@ void RWM_P5::createScene(void)
 	l->setCastShadows(true);
 
 	// Create the player
-	player = new Player(Ogre::Vector3(10.0f, 5.0f, 10.0f), physics.GetPhysicsWorld(), mSceneMgr);
+	player = new Player(Ogre::Vector3(0.0f, 1.4f, 0.0f), physics.GetPhysicsWorld(), mSceneMgr);
+	qube = new Qube(Ogre::Vector3(5, 5, 0), Ogre::Vector3(1, 1, 1), physics.GetPhysicsWorld(), mSceneMgr);
 
 	buildingBlocks.push_back(new BuildingBlock(Vector3(0, 0.5, 0), Vector3(2.1, 1, 2.1), "Examples/hash6BC34B", physics.GetPhysicsWorld(), mSceneMgr));
 	buildingBlocks.push_back(new BuildingBlock(Vector3(2, 1.0, 0), Vector3(2.1, 2, 2.1), "Examples/hash6BC34B", physics.GetPhysicsWorld(), mSceneMgr));

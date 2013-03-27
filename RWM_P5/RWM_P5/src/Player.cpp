@@ -68,10 +68,13 @@ Player::Player(Vector3 spawnLocation, hkpWorld * world, SceneManager * sceneMgr)
 	mPreviousGround = new hkpSurfaceInfo();
 	mCurrentAngle = HK_REAL_PI;
 
+	mGravityGun = new hkpGravityGun();
+	mGravityGun->m_throwVelocity = 5.0f;
+
 	mWorld->unlock();
 }
 
-void Player::update(int UD, int LR, bool jump, Camera * cam, float dt) {
+void Player::update(int UD, int LR, bool lmb, bool rmb, bool jump, Camera * cam, float dt) {
 	if (dt <= 0)
 		return;
 
@@ -80,7 +83,7 @@ void Player::update(int UD, int LR, bool jump, Camera * cam, float dt) {
 	hkVector4 pos = mCharacterBody->getRigidBody()->getPosition();
 
 	mCurrentOrientation.setAxisAngle(hkVector4(0, 1, 0), mCurrentAngle);
-
+	
 	hkpCharacterInput input;
 	hkpCharacterOutput output;
 	{
@@ -91,7 +94,7 @@ void Player::update(int UD, int LR, bool jump, Camera * cam, float dt) {
 		input.m_atLadder = false;
 
 		input.m_up.set(0, 1, 0);
-		input.m_forward.set(0, 0, -1);
+		input.m_forward.set(0, 0, 1);
 		input.m_forward.setRotatedDir( mCurrentOrientation, input.m_forward );
 
 		hkStepInfo stepInfo;
@@ -111,6 +114,16 @@ void Player::update(int UD, int LR, bool jump, Camera * cam, float dt) {
 	mCharacterBody->setLinearVelocity(output.m_velocity, dt);
 
 	mWorld->unlock();
+
+	//mCurrentOrientation.setAxisAngle(hkVector4(0, 1, 0), mCurrentAngle+(HK_REAL_PI / 2));
+	float yaw = cam->getOrientation().getYaw().valueRadians() + (HK_REAL_PI / 2);
+	float pitch = cam->getOrientation().getPitch().valueRadians();
+	hkQuaternion qY(hkVector4(0, 1, 0), yaw);
+	hkQuaternion qX(hkVector4(1, 0, 0), pitch);
+	qX.mul(qY);
+	mTransform = hkTransform(qX, pos);
+
+	mGravityGun->stepGun(dt, mWorld, mCharacterBody->getRigidBody(), mTransform, lmb, rmb);
 
 	//Update the camera
 	cam->setPosition(pos(0), pos(1) + 1.0, pos(2));

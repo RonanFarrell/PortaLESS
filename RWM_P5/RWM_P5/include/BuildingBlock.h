@@ -33,7 +33,7 @@ public:
 		hkpRigidBodyCinfo blockInfo;
 		blockInfo.m_motionType	= hkpMotion::MOTION_FIXED;
 		blockInfo.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
-		blockInfo.m_restitution = 0.4;
+		blockInfo.m_restitution = 0.1;
 		blockInfo.m_friction	= 0.8;
 		blockInfo.m_position	= blockPosition;
 		blockInfo.m_shape		= blockShape;
