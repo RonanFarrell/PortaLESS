@@ -42,6 +42,9 @@
     <ClInclude Include="include\Qube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\SeeSaw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\RWM_P5.cpp">
@@ -60,6 +63,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Qube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SeeSaw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

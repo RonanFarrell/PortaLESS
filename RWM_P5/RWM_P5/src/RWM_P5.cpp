@@ -64,18 +64,18 @@ void RWM_P5::createScene(void)
 
 
     // Set ambient light
-    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
+    mSceneMgr->setAmbientLight(Ogre::ColourValue(1.0, 1.0, 1.0));
 	mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_MODULATIVE);
 
     // Create a light
     Ogre::Light* l = mSceneMgr->createLight("MainLight");
     l->setPosition(0,30,0);
-	l->setDiffuseColour(0.2, 0.8, 0.4);
 	l->setCastShadows(true);
 
 	// Create the player
 	player = new Player(Ogre::Vector3(0.0f, 1.4f, 0.0f), physics.GetPhysicsWorld(), mSceneMgr);
-	qube = new Qube(Ogre::Vector3(5, 5, 0), Ogre::Vector3(1, 1, 1), physics.GetPhysicsWorld(), mSceneMgr);
+	qube = new Qube(Ogre::Vector3(5.0f, 5.0f, 0.0f), Ogre::Vector3(1.0f, 1.0f, 1.0f), physics.GetPhysicsWorld(), mSceneMgr);
+	ss = new SeeSaw(Ogre::Vector3(20.0f, 1.0f, 0.0f), Ogre::Vector3(5.0f, 0.5f, 1.0f), Ogre::Vector3(0.0f, 0.0f, 1.0f), physics.GetPhysicsWorld(), mSceneMgr);
 
 	buildingBlocks.push_back(new BuildingBlock(Vector3(0, 0.5, 0), Vector3(2.1, 1, 2.1), "Examples/hash6BC34B", physics.GetPhysicsWorld(), mSceneMgr));
 	buildingBlocks.push_back(new BuildingBlock(Vector3(2, 1.0, 0), Vector3(2.1, 2, 2.1), "Examples/hash6BC34B", physics.GetPhysicsWorld(), mSceneMgr));
