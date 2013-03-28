@@ -75,7 +75,7 @@ void RWM_P5::createScene(void)
 	// Create the player
 	player = new Player(Ogre::Vector3(0.0f, 1.4f, 0.0f), physics.GetPhysicsWorld(), mSceneMgr);
 	qube = new Qube(Ogre::Vector3(5.0f, 5.0f, 0.0f), Ogre::Vector3(1.0f, 1.0f, 1.0f), physics.GetPhysicsWorld(), mSceneMgr);
-	ss = new SeeSaw(Ogre::Vector3(20.0f, 1.0f, 0.0f), Ogre::Vector3(5.0f, 0.5f, 1.0f), Ogre::Vector3(0.0f, 0.0f, 1.0f), physics.GetPhysicsWorld(), mSceneMgr);
+	ss = new SeeSaw(Ogre::Vector3(20.0f, 1.0f, 0.0f), Ogre::Vector3(5.0f, 0.2f, 1.0f), Ogre::Vector3(0.0f, 0.0f, 1.0f), physics.GetPhysicsWorld(), mSceneMgr);
 
 	buildingBlocks.push_back(new BuildingBlock(Vector3(0, 0.5, 0), Vector3(2.1, 1, 2.1), "Examples/hash6BC34B", physics.GetPhysicsWorld(), mSceneMgr));
 	buildingBlocks.push_back(new BuildingBlock(Vector3(2, 1.0, 0), Vector3(2.1, 2, 2.1), "Examples/hash6BC34B", physics.GetPhysicsWorld(), mSceneMgr));

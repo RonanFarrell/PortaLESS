@@ -21,6 +21,11 @@ Qube::Qube(Vector3 pos, Vector3 size, hkpWorld * world, SceneManager * sceneMgr)
 	qubeInfo.m_position	= qubePosition;
 	qubeInfo.m_shape = qubeShape;
 
+	hkMassProperties massProperties;
+	hkpInertiaTensorComputer::computeBoxVolumeMassProperties(qubeDimensions, qubeInfo.m_mass, massProperties);
+	qubeInfo.m_inertiaTensor = massProperties.m_inertiaTensor;
+	qubeInfo.m_centerOfMass = massProperties.m_centerOfMass;
+
 	mBody = new hkpRigidBody(qubeInfo);
 	mWorld->addEntity(mBody);
 	qubeShape->removeReference();

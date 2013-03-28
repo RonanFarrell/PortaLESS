@@ -34,7 +34,7 @@ public:
 	Player(Vector3 spawnLocation, hkpWorld * world, SceneManager * sceneMgr);
 	~Player();
 
-	void update(int UD, int LR, bool lmb, bool rmb, bool jump, Camera * cam, float dt);
+	void update(int UD, int LR, bool lmb, bool rmb, bool mmb, bool jump, Camera * cam, float dt);
 
 	// Accessors
 	hkpCharacterContext * getCharacterContext() { return mCharacterContext; };

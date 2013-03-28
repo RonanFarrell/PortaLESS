@@ -77,7 +77,7 @@ Player::Player(Vector3 spawnLocation, hkpWorld * world, SceneManager * sceneMgr)
 	mWorld->unlock();
 }
 
-void Player::update(int UD, int LR, bool lmb, bool rmb, bool jump, Camera * cam, float dt) {
+void Player::update(int UD, int LR, bool lmb, bool rmb, bool mmb, bool jump, Camera * cam, float dt) {
 	if (dt <= 0)
 		return;
 
@@ -126,7 +126,19 @@ void Player::update(int UD, int LR, bool lmb, bool rmb, bool jump, Camera * cam,
 	qX.mul(qY);
 	mTransform = hkTransform(qX, pos);
 
+	// Hack to simulate dropping an object. Set throw velovity and 
+	// impulse applied to zero so whatever you're holding drops at
+	// your feet
+	if (mmb && !mGravityGun->m_grabbedBodies.isEmpty()) {
+		mGravityGun->m_throwVelocity = 0.0f;
+		mGravityGun->m_impulseAppliedWhenObjectNotPicked = 0.0f;
+		lmb = true;
+	}
+
 	mGravityGun->stepGun(dt, mWorld, mCharacterBody->getRigidBody(), mTransform, lmb, rmb);
+
+	mGravityGun->m_throwVelocity = 5.0f;
+	mGravityGun->m_impulseAppliedWhenObjectNotPicked = 100.0f;
 
 	//Update the camera
 	cam->setPosition(pos(0), pos(1) + 1.0, pos(2));

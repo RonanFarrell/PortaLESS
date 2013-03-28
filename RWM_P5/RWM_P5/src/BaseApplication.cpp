@@ -26,6 +26,7 @@ int UD = 0;
 int LR = 0;
 bool lmb = false;
 bool rmb = false;
+bool mmb = false;
 bool jump = false;
 
 
@@ -273,7 +274,7 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	
 
 	player->setCurrrentAngle((hkReal)mCamera->getOrientation().getYaw().valueRadians());
-	player->update(UD, LR, lmb, rmb, jump, mCamera, evt.timeSinceLastFrame);
+	player->update(UD, LR, lmb, rmb, mmb, jump, mCamera, evt.timeSinceLastFrame);
 	jump = false;
 
 	qube->update();
@@ -456,6 +457,7 @@ bool BaseApplication::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButton
     
 	lmb = arg.state.buttonDown(OIS::MB_Left);
 	rmb = arg.state.buttonDown(OIS::MB_Right);
+	mmb = arg.state.buttonDown(OIS::MB_Middle);
     return true;
 }
 
@@ -464,6 +466,7 @@ bool BaseApplication::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButto
     if (mTrayMgr->injectMouseUp(arg, id)) return true;
     lmb = arg.state.buttonDown(OIS::MB_Left);
 	rmb = arg.state.buttonDown(OIS::MB_Right);
+	mmb = arg.state.buttonDown(OIS::MB_Middle);
     return true;
 }
 
