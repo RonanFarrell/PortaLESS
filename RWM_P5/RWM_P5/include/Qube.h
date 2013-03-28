@@ -23,6 +23,8 @@ public:
 
 	void update();
 
+	void convertToDefault();
 	void convertToHeavy();
 	void convertToFloaty();
+	void convertToBouncy();
 };

@@ -38,6 +38,8 @@ Player::Player(Vector3 spawnLocation, hkpWorld * world, SceneManager * sceneMgr)
 	mCharacterBody->setListener( listener );
 	listener->removeReference();
 
+	mCharacterBody->getRigidBody()->setRestitution(1.5f);
+
 	mWorld->addEntity( mCharacterBody->getRigidBody() );
 
 	// Create character state machine and context

@@ -409,12 +409,17 @@ bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
 	}
 
 	if (arg.key == OIS::KC_1) {
-		qube->convertToHeavy();
+		qube->convertToDefault();
 	}
 	if (arg.key == OIS::KC_2) {
 		qube->convertToFloaty();
 	}
-
+	if (arg.key == OIS::KC_3) {
+		qube->convertToHeavy();
+	}
+	if (arg.key == OIS::KC_4) {
+		qube->convertToBouncy();
+	}
     //mCameraMan->injectKeyDown(arg);
     return true;
 }

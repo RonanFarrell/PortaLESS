@@ -14,7 +14,7 @@ Qube::Qube(Vector3 pos, Vector3 size, hkpWorld * world, SceneManager * sceneMgr)
 	// Set physical properties
 	hkpRigidBodyCinfo qubeInfo;
 	qubeInfo.m_motionType	= hkpMotion::MOTION_BOX_INERTIA;
-	qubeInfo.m_qualityType = HK_COLLIDABLE_QUALITY_MOVING;
+	qubeInfo.m_qualityType = HK_COLLIDABLE_QUALITY_CRITICAL;
 	qubeInfo.m_restitution = 0.0;
 	qubeInfo.m_friction	= 0.5;
 	qubeInfo.m_mass = 100.0f;
@@ -58,10 +58,17 @@ void Qube::update() {
 	mNode->setOrientation(oOrientation);
 }
 
+void Qube::convertToDefault() {
+	mMesh->setMaterialName("Examples/CubeDefault");
+	mBody->setGravityFactor(1);
+	mBody->setMass(100.0f);
+	mBody->setRestitution(0.1f);
+}
+
 void Qube::convertToHeavy() {
 	mMesh->setMaterialName("Examples/CubeHeavy");
 	mBody->setGravityFactor(1);
-	mBody->setMass(1000.0f);
+	mBody->setMass(200.0f);
 	mBody->setRestitution(0.0f);
 }
 
@@ -69,4 +76,11 @@ void Qube::convertToFloaty() {
 	mMesh->setMaterialName("Examples/CubeFloaty");
 	mBody->setGravityFactor(0);
 	mBody->setMass(100.0f);
+}
+
+void Qube::convertToBouncy() {
+	mMesh->setMaterialName("Examples/CubeBouncy");
+	mBody->setGravityFactor(1);
+	mBody->setMass(200.0f);
+	mBody->setRestitution(1.1f);
 }

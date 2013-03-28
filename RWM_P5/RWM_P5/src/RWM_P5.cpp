@@ -33,7 +33,7 @@ void RWM_P5::createScene(void)
 {
 	physics.SetUp();
 
-	hkVector4 floorBox(200.0f, 0.1f, 200.0f);
+	hkVector4 floorBox(200.0f, 0.01f, 200.0f);
 	hkVector4 floorPosition(0.0f, 0.0f, 0.0f);
 	hkpConvexShape * shape = new hkpBoxShape(floorBox, 0);
 
@@ -42,8 +42,8 @@ void RWM_P5::createScene(void)
 	floorInfo.m_motionType = hkpMotion::MOTION_FIXED;
 	floorInfo.m_position = floorPosition;
 	floorInfo.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
-	floorInfo.m_restitution = 0.1f;
-	floorInfo.m_friction = 1.0f;
+	floorInfo.m_restitution = 0.0f;
+	floorInfo.m_friction = 0.8f;
 
 	floor = new hkpRigidBody(floorInfo);
 	physics.GetPhysicsWorld()->addEntity(floor);
@@ -64,12 +64,13 @@ void RWM_P5::createScene(void)
 
 
     // Set ambient light
-    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.0, 0.0, 0.0));
+    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
 	mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_MODULATIVE);
 
     // Create a light
     Ogre::Light* l = mSceneMgr->createLight("MainLight");
-    l->setPosition(0,30,10);
+    l->setPosition(0,30,0);
+	l->setDiffuseColour(0.2, 0.8, 0.4);
 	l->setCastShadows(true);
 
 	// Create the player
