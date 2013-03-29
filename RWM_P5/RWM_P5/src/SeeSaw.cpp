@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SeeSaw.h"
 
-SeeSaw::SeeSaw (Vector3 pos, Vector3 size, Vector3 axis, hkpWorld * world, SceneManager * sceneMgr) :
+SeeSaw::SeeSaw (Vector3 pos, Vector3 size, Vector3 axis, Vector3 pivotOffset, hkpWorld * world, SceneManager * sceneMgr) :
 	mWorld(world), mSceneMgr(sceneMgr)
 {
 	numSeeSaw++;
@@ -17,7 +17,7 @@ SeeSaw::SeeSaw (Vector3 pos, Vector3 size, Vector3 axis, hkpWorld * world, Scene
 	info.m_shape = boxShape;
 
 	hkMassProperties massProperties;
-	info.m_mass = 200.0f;
+	info.m_mass = 10.0f;
 	hkpInertiaTensorComputer::computeBoxVolumeMassProperties(halfSize, info.m_mass, massProperties);
 	info.m_inertiaTensor = massProperties.m_inertiaTensor;
 	info.m_centerOfMass = massProperties.m_centerOfMass;
@@ -31,11 +31,16 @@ SeeSaw::SeeSaw (Vector3 pos, Vector3 size, Vector3 axis, hkpWorld * world, Scene
 	// Create limited hinge constraint
 	hkpLimitedHingeConstraintData * lhc = new hkpLimitedHingeConstraintData();
 
+	//hkVector4 pivot(position(0) + pivotOffset.x, position(1) + pivotOffset.y, position(2) + pivotOffset.z);
 	hkVector4 pivot(position);
+	pivot(0) += pivotOffset.x;
+	pivot(2) += pivotOffset.z;
 	hkVector4 pivotAxis(axis.x, axis.y, axis.z);
-	lhc->setInWorldSpace(mMoveablebody->getTransform(), mFixedBody->getTransform(), pivot, pivotAxis);
-	lhc->setMinAngularLimit(-HK_REAL_PI / 3.0f);
-	lhc->setMaxAngularLimit(HK_REAL_PI / 4.0f);
+	hkTransform t(mFixedBody->getTransform());
+	//t.setTranslation(pivot);
+	lhc->setInWorldSpace(mMoveablebody->getTransform(), t, pivot, pivotAxis);
+	lhc->setMinAngularLimit(-HK_REAL_PI / 2.0f);
+	lhc->setMaxAngularLimit(HK_REAL_PI / 2.0f);
 
 	hkpConstraintInstance * constraint = new hkpConstraintInstance(mMoveablebody, mFixedBody, lhc);
 	mWorld->addConstraint(constraint);
@@ -73,4 +78,7 @@ void SeeSaw::update() {
 	Vector3 oAxis(hkAxis(0), hkAxis(1), hkAxis(2));
 	Quaternion oOrientation(angle, oAxis);
 	mNode->setOrientation(oOrientation);
+
+	hkVector4 pos(mMoveablebody->getPosition());
+	mNode->setPosition(pos(0), pos(1), pos(2));
 }

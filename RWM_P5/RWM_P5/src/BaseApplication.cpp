@@ -271,7 +271,7 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 
 	physics.Simulate(evt.timeSinceLastFrame);
 
-	
+	levelManager->update();
 
 	player->setCurrrentAngle((hkReal)mCamera->getOrientation().getYaw().valueRadians());
 	player->update(UD, LR, lmb, rmb, mmb, jump, mCamera, evt.timeSinceLastFrame);
