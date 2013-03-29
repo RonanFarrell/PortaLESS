@@ -33,59 +33,16 @@ void RWM_P5::createScene(void)
 {
 	physics.SetUp();
 
-	hkVector4 floorBox(200.0f, 0.01f, 200.0f);
-	hkVector4 floorPosition(0.0f, 0.0f, 0.0f);
-	hkpConvexShape * shape = new hkpBoxShape(floorBox, 0);
-
-	hkpRigidBodyCinfo floorInfo;
-	floorInfo.m_shape = shape;
-	floorInfo.m_motionType = hkpMotion::MOTION_FIXED;
-	floorInfo.m_position = floorPosition;
-	floorInfo.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
-	floorInfo.m_restitution = 0.0f;
-	floorInfo.m_friction = 0.8f;
-
-	floor = new hkpRigidBody(floorInfo);
-	physics.GetPhysicsWorld()->addEntity(floor);
-	shape->removeReference();
-
-	Ogre::MeshPtr p =Ogre::MeshManager::getSingleton().createPlane("GroundPlane", 
-		Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, 
-		Ogre::Plane(Ogre::Vector3(0.0,1.0,0.0),
-			Ogre::Vector3(floorPosition(0),floorPosition(1),floorPosition(2)))
-		,400,400,20,20,true, 1,1.0f,1.0f,Ogre::Vector3::UNIT_X);
-
-	Ogre::SceneNode* planeNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-    Ogre::Entity* entGround = mSceneMgr->createEntity("Viewer_ZXPlane","GroundPlane");
-	entGround->setMaterialName("Examples/hashB03B52");
-    entGround->setCastShadows(true);
-	
-	planeNode->attachObject(entGround);
-
 
     // Set ambient light
     mSceneMgr->setAmbientLight(Ogre::ColourValue(1.0, 1.0, 1.0));
 	mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_MODULATIVE);
 
-    // Create a light
-    Ogre::Light* l = mSceneMgr->createLight("MainLight");
-    l->setPosition(0,30,0);
-	l->setCastShadows(true);
-
 	// Create the player
+	levelManager = new LevelManager(physics.GetPhysicsWorld(), mSceneMgr);
+	levelManager->loadLevel1();
 	player = new Player(Ogre::Vector3(0.0f, 1.4f, 0.0f), physics.GetPhysicsWorld(), mSceneMgr);
 	qube = new Qube(Ogre::Vector3(5.0f, 5.0f, 0.0f), Ogre::Vector3(1.0f, 1.0f, 1.0f), physics.GetPhysicsWorld(), mSceneMgr);
-	ss = new SeeSaw(Ogre::Vector3(20.0f, 1.0f, 0.0f), Ogre::Vector3(5.0f, 0.2f, 1.0f), Ogre::Vector3(0.0f, 0.0f, 1.0f), physics.GetPhysicsWorld(), mSceneMgr);
-
-	buildingBlocks.push_back(new BuildingBlock(Vector3(0, 0.5, 0), Vector3(2.1, 1, 2.1), "Examples/hash6BC34B", physics.GetPhysicsWorld(), mSceneMgr));
-	buildingBlocks.push_back(new BuildingBlock(Vector3(2, 1.0, 0), Vector3(2.1, 2, 2.1), "Examples/hash6BC34B", physics.GetPhysicsWorld(), mSceneMgr));
-	buildingBlocks.push_back(new BuildingBlock(Vector3(4, 1.5, 0), Vector3(2.1, 3, 2.1), "Examples/hash6BC34B", physics.GetPhysicsWorld(), mSceneMgr));
-	buildingBlocks.push_back(new BuildingBlock(Vector3(6, 2.0, 0), Vector3(2.1, 4, 2.1), "Examples/hash6BC34B", physics.GetPhysicsWorld(), mSceneMgr));
-
-	buildingBlocks.push_back(new BuildingBlock(Vector3(8, 3.5, 0), Vector3(2.1, 1, 2.1), "Examples/hash6BC34B", physics.GetPhysicsWorld(), mSceneMgr));
-	buildingBlocks.push_back(new BuildingBlock(Vector3(10, 3.0, 0), Vector3(2.1, 2, 2.1), "Examples/hash6BC34B", physics.GetPhysicsWorld(), mSceneMgr));
-	buildingBlocks.push_back(new BuildingBlock(Vector3(12, 2.5, 0), Vector3(2.1, 3, 2.1), "Examples/hash6BC34B", physics.GetPhysicsWorld(), mSceneMgr));
-	buildingBlocks.push_back(new BuildingBlock(Vector3(14, 2.0, 0), Vector3(2.1, 4, 2.1), "Examples/hash6BC34B", physics.GetPhysicsWorld(), mSceneMgr));
 }
 
 

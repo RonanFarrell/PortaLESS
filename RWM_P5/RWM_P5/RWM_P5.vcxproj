@@ -119,6 +119,7 @@
     <ClInclude Include="include\BaseApplication.h" />
     <ClInclude Include="include\BuildingBlock.h" />
     <ClInclude Include="include\Havok.h" />
+    <ClInclude Include="include\LevelManager.h" />
     <ClInclude Include="include\Physics.h" />
     <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\Qube.h" />
@@ -128,6 +129,7 @@
     <ClInclude Include="res\Resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="include\LevelManager.cpp" />
     <ClCompile Include="src\BaseApplication.cpp" />
     <ClCompile Include="src\Physics.cpp" />
     <ClCompile Include="src\Player.cpp" />

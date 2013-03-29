@@ -278,7 +278,6 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	jump = false;
 
 	qube->update();
-	ss->update();
 
     //Need to capture/update each device
     mKeyboard->capture();

@@ -28,7 +28,7 @@ Player::Player(Vector3 spawnLocation, hkpWorld * world, SceneManager * sceneMgr)
 	info.m_mass = 60.0f;
 	info.m_shape = mStandShape;
 
-	info.m_maxForce = 6000.0f;
+	info.m_maxForce = 50.0f;
 	info.m_up = hkVector4(0.0, 1.0, 0.0);
 	info.m_position.set(spawnLocation.x, spawnLocation.y, spawnLocation.z);
 	info.m_maxSlope = 60.0f * HK_REAL_DEG_TO_RAD;
@@ -98,7 +98,7 @@ void Player::update(int UD, int LR, bool lmb, bool rmb, bool mmb, bool jump, Cam
 
 		input.m_up.set(0, 1, 0);
 		input.m_forward.set(0, 0, 1);
-		input.m_forward.setRotatedDir( mCurrentOrientation, input.m_forward );
+		input.m_forward.setRotatedDir( mCurrentOrientation, input.m_forward ); 
 
 		hkStepInfo stepInfo;
 		stepInfo.m_deltaTime = dt;
@@ -109,7 +109,6 @@ void Player::update(int UD, int LR, bool lmb, bool rmb, bool mmb, bool jump, Cam
 		input.m_characterGravity.set(0, -16, 0);
 		input.m_velocity = mCharacterBody->getRigidBody()->getLinearVelocity();
 		input.m_position = pos;
-
 		mCharacterBody->checkSupport(stepInfo, input.m_surfaceInfo);
 	}
 
