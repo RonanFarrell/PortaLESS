@@ -51,6 +51,7 @@ public:
 
 		Vector3 meshSize = aab.getSize();
 		Vector3 scaling = size / meshSize;
+		scaling *= 1.02f;
 
 		char nodeName[] = "000BuildingBlockNode";
 		nodeName[0] += numBlocks;

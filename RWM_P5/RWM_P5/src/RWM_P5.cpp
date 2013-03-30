@@ -41,8 +41,8 @@ void RWM_P5::createScene(void)
 	// Create the player
 	levelManager = new LevelManager(physics.GetPhysicsWorld(), mSceneMgr);
 	levelManager->loadLevel1();
-	player = new Player(Ogre::Vector3(3.5f, 5.4f, -12.0f), physics.GetPhysicsWorld(), mSceneMgr);
-	qube = new Qube(Ogre::Vector3(5.0f, 5.0f, 0.0f), Ogre::Vector3(1.0f, 1.0f, 1.0f), physics.GetPhysicsWorld(), mSceneMgr);
+	player = new Player(Ogre::Vector3(0.0f, 2.0f, 0.0f), physics.GetPhysicsWorld(), mSceneMgr);
+	qube = new Qube(Ogre::Vector3(3.0f, 2.0f, 0.0f), Ogre::Vector3(1.0f, 1.0f, 1.0f), physics.GetPhysicsWorld(), mSceneMgr);
 }
 
 
