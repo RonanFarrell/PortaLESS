@@ -14,10 +14,9 @@ Player::Player(Vector3 spawnLocation, hkpWorld * world, SceneManager * sceneMgr)
 {
 	mWorld->lock();
 
-	// Setup Havok stuff
+	// The player size
 	hkVector4 vertexA(0, 0.4f, 0);
 	hkVector4 vertexB(0, -0.4f, 0);
-
 	mStandShape = new hkpCapsuleShape(vertexA, vertexB, 0.6f);
 
 	vertexA.setZero4();
@@ -37,8 +36,6 @@ Player::Player(Vector3 spawnLocation, hkpWorld * world, SceneManager * sceneMgr)
 	hkpCharacterRigidBodyListener * listener = new hkpCharacterRigidBodyListener();
 	mCharacterBody->setListener( listener );
 	listener->removeReference();
-
-	mCharacterBody->getRigidBody()->setRestitution(1.5f);
 
 	mWorld->addEntity( mCharacterBody->getRigidBody() );
 
@@ -67,7 +64,7 @@ Player::Player(Vector3 spawnLocation, hkpWorld * world, SceneManager * sceneMgr)
 
 	// Set character type
 	mCharacterContext->setCharacterType(hkpCharacterContext::HK_CHARACTER_RIGIDBODY);
-	mPreviousGround = new hkpSurfaceInfo();
+	//mPreviousGround = new hkpSurfaceInfo();
 	mCurrentAngle = HK_REAL_PI;
 
 	mGravityGun = new hkpGravityGun();
