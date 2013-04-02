@@ -437,6 +437,7 @@ bool BaseApplication::keyReleased( const OIS::KeyEvent &arg )
 	} else if (arg.key == OIS::KC_A || arg.key == OIS::KC_LEFT) {
 		LR = 0;
 	}
+
     //mCameraMan->injectKeyUp(arg);
     return true;
 }

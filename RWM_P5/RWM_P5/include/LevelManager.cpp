@@ -47,7 +47,7 @@ void LevelManager::createCorridor(Vector3 pos) {
 
 void LevelManager::createRoom1(Vector3 pos) {
 	// Floor
-	buildingBlocks.push_back(new BuildingBlock(Vector3(0.0f, 0.5f, 0.0f)+pos, Vector3(12.0f, 1.0f, 8.0f), "Examples/Wall", mWorld, mSceneMgr));
+	buildingBlocks.push_back(new BuildingBlock(Vector3(0.0f, 0.5f, 2.0f)+pos, Vector3(12.0f, 1.0f, 12.0f), "Examples/Wall", mWorld, mSceneMgr));
 	// First Step
 	buildingBlocks.push_back(new BuildingBlock(Vector3(-3.0f, 1.75f, -7.0f)+pos, Vector3(6.0f, 1.5f, 6.0f), "Examples/Wall", mWorld, mSceneMgr));
 	// Second Step
@@ -59,13 +59,13 @@ void LevelManager::createRoom1(Vector3 pos) {
 	// Wall above exit
 	buildingBlocks.push_back(new BuildingBlock(Vector3(3.0f, 8.5f, -10.5f)+pos, Vector3(2.0f, 1.0f, 1.0f), "Examples/Wall", mWorld, mSceneMgr));
 	// Left wall
-	buildingBlocks.push_back(new BuildingBlock(Vector3(-6.5f, 5.0f, -3.0f)+pos, Vector3(1.0f, 8.0f, 14.0f), "Examples/Wall", mWorld, mSceneMgr));
+	buildingBlocks.push_back(new BuildingBlock(Vector3(-6.5f, 5.0f, -1.0f)+pos, Vector3(1.0f, 8.0f, 18.0f), "Examples/Wall", mWorld, mSceneMgr));
 	// Right wall
-	buildingBlocks.push_back(new BuildingBlock(Vector3(6.5f, 5.0f, -3.0f)+pos, Vector3(1.0f, 8.0f, 14.0f), "Examples/Wall", mWorld, mSceneMgr));
+	buildingBlocks.push_back(new BuildingBlock(Vector3(6.5f, 5.0f, -1.0f)+pos, Vector3(1.0f, 8.0f, 18.0f), "Examples/Wall", mWorld, mSceneMgr));
 	// Back wall
-	buildingBlocks.push_back(new BuildingBlock(Vector3(0.0f, 5.0f, 4.5f)+pos, Vector3(12.0f, 8.0f, 1.0f), "Examples/Wall", mWorld, mSceneMgr));
+	buildingBlocks.push_back(new BuildingBlock(Vector3(0.0f, 5.0f, 8.5f)+pos, Vector3(12.0f, 8.0f, 1.0f), "Examples/Controls", mWorld, mSceneMgr));
 	// Roof
-	buildingBlocks.push_back(new BuildingBlock(Vector3(0.0f, 9.5f, -3.0f)+pos, Vector3(12.0f, 1.0f, 14.0f), "Examples/Wall", mWorld, mSceneMgr));
+	buildingBlocks.push_back(new BuildingBlock(Vector3(0.0f, 9.5f, -1.0f)+pos, Vector3(12.0f, 1.0f, 18.0f), "Examples/Wall", mWorld, mSceneMgr));
 }
 
 void LevelManager::createRoom2(Vector3 pos) {
