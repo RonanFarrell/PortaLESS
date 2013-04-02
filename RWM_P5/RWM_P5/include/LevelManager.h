@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "BuildingBlock.h"
 #include "SeeSaw.h"
+#include "Pulley.h"
 
 class LevelManager {
 private:
@@ -11,6 +12,7 @@ private:
 	Ogre::SceneManager * mSceneMgr;
 	std::vector<ManualObject *> mLevelOutline;
 	ManualObject * createOutline(Vector3 pos, Vector3 size, String name);
+	Pulley * p;
 
 	void createCorridor(Vector3 pos);
 	void createRoom1(Vector3 pos);

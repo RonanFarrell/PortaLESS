@@ -12,6 +12,8 @@ void LevelManager::loadLevel1() {
 	l->setPosition(0.0f, 8.0f ,0.0f);
 	l->setCastShadows(false);
 
+	p = new Pulley(mWorld, mSceneMgr);
+
 	createRoom1(Vector3(0.0f, 0.0f, 0.0f));
 	createCorridor(Vector3(5.0f, 4.0f, -17.0f));
 	createRoom2(Vector3(7.0f, 4.0f, -32.0f));
@@ -22,6 +24,8 @@ void LevelManager::update() {
 	for ( ; seeSawIter != seeSaws.end(); seeSawIter++ ) {
 		(*seeSawIter)->update();
 	}
+
+	p->update();
 }
 
 void LevelManager::createCorridor(Vector3 pos) {
@@ -47,7 +51,7 @@ void LevelManager::createCorridor(Vector3 pos) {
 
 void LevelManager::createRoom1(Vector3 pos) {
 	// Floor
-	buildingBlocks.push_back(new BuildingBlock(Vector3(0.0f, 0.5f, 2.0f)+pos, Vector3(12.0f, 1.0f, 12.0f), "Examples/Wall", mWorld, mSceneMgr));
+	buildingBlocks.push_back(new BuildingBlock(Vector3(0.0f, -5.5f, 2.0f)+pos, Vector3(12.0f, 1.0f, 12.0f), "Examples/Wall", mWorld, mSceneMgr));
 	// First Step
 	buildingBlocks.push_back(new BuildingBlock(Vector3(-3.0f, 1.75f, -7.0f)+pos, Vector3(6.0f, 1.5f, 6.0f), "Examples/Wall", mWorld, mSceneMgr));
 	// Second Step
