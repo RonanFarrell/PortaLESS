@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Pulley.h"
 
-Pulley::Pulley(hkpWorld * world, SceneManager * sceneMgr) : mWorld(world), mSceneMgr(sceneMgr)
+Pulley::Pulley(Vector3 pivotPos1, Vector3 pivotPos2, hkpWorld * world, SceneManager * sceneMgr) : mWorld(world), mSceneMgr(sceneMgr)
 {
 	hkVector4 halfSize(0.5f, 0.5f, 0.5f);
 	hkpBoxShape* boxShape = new hkpBoxShape( halfSize , 0 );
@@ -25,8 +25,8 @@ Pulley::Pulley(hkpWorld * world, SceneManager * sceneMgr) : mWorld(world), mScen
 
 	// Create pulley constraint
 	hkVector4 worldPivots[2];
-	worldPivots[0] = hkVector4(-2.0f, 3.0f, -1.0f);
-	worldPivots[1] = hkVector4(-2.0f, 3.0f, 1.0f);
+	worldPivots[0] = hkVector4(pivotPos1.x, pivotPos1.y, pivotPos1.z);
+	worldPivots[1] = hkVector4(pivotPos2.x, pivotPos2.y, pivotPos2.z);
 
 	hkpPulleyConstraintData * pulley = new hkpPulleyConstraintData();
 

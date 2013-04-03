@@ -17,6 +17,7 @@ private:
 	void createCorridor(Vector3 pos);
 	void createRoom1(Vector3 pos);
 	void createRoom2(Vector3 pos);
+	void createRoom3(Vector3 pos);
 public:
 	LevelManager();
 	LevelManager(hkpWorld * world, Ogre::SceneManager * sceneMgr);

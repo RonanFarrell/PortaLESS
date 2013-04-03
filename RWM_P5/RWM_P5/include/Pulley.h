@@ -15,7 +15,7 @@ private:
 	SceneNode * mNode0;
 	SceneNode * mNode1;
 public:
-	Pulley(hkpWorld * world, SceneManager * sceneMgr);
+	Pulley(Vector3 pivotPos1, Vector3 pivotPos2, hkpWorld * world, SceneManager * sceneMgr);
 	~Pulley();
 
 	void update();
