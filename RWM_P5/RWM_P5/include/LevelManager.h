@@ -3,11 +3,13 @@
 #include "BuildingBlock.h"
 #include "SeeSaw.h"
 #include "Pulley.h"
+#include "Qube.h"
 
 class LevelManager {
 private:
 	std::vector<BuildingBlock *> buildingBlocks;
 	std::vector<SeeSaw *> seeSaws;
+	std::vector<Qube *> qubes;
 	hkpWorld * mWorld;
 	Ogre::SceneManager * mSceneMgr;
 	std::vector<ManualObject *> mLevelOutline;

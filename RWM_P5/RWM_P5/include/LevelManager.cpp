@@ -27,7 +27,12 @@ void LevelManager::update() {
 		(*seeSawIter)->update();
 	}
 
-	//p->update();
+	std::vector<Qube *>::iterator qIter = qubes.begin();
+	for ( ; qIter != qubes.end(); qIter++ ) {
+		(*qIter)->update();
+	}
+
+	p->update();
 }
 
 void LevelManager::createCorridor(Vector3 pos) {
@@ -123,4 +128,18 @@ void LevelManager::createRoom3(Vector3 pos) {
 	buildingBlocks.push_back(new BuildingBlock(Vector3(-8.5f, 5.0f, 0.0f)+pos, Vector3(1.0f, 8.0f, 20.0f), "Examples/Wall", mWorld, mSceneMgr));
 	// Roof
 	buildingBlocks.push_back(new BuildingBlock(Vector3(0.0f, 9.5f, 0.0f)+pos, Vector3(16.0f, 1.0f, 20.0f), "Examples/Wall", mWorld, mSceneMgr));
+
+	// Top platform
+	buildingBlocks.push_back(new BuildingBlock(Vector3(5.0f, 3.0f, 5.0f)+pos, Vector3(6.0f, 4.0f, 10.0f), "Examples/Wall", mWorld, mSceneMgr));
+	// Step
+	buildingBlocks.push_back(new BuildingBlock(Vector3(5.0f, 2.0f, -1.0f)+pos, Vector3(6.0f, 2.0f, 2.0f), "Examples/Wall", mWorld, mSceneMgr));
+
+	// Create pulley system
+	p = new Pulley(Vector3(0.0f, 8.0f, -9.5f)+pos, Vector3(0.0f, 8.0f, 3.0f)+pos, mWorld, mSceneMgr);
+
+	// Qubes
+	qubes.push_back(new Qube(Vector3(-4.0f, 1.0f, 0.0f)+pos, Vector3(1.0f, 1.0f, 1.0f), mWorld, mSceneMgr));
+	qubes.push_back(new Qube(Vector3(-4.0f, 1.0f, 3.0f)+pos, Vector3(1.0f, 1.0f, 1.0f), mWorld, mSceneMgr));
+	qubes.push_back(new Qube(Vector3(-4.0f, 1.0f, 6.0f)+pos, Vector3(1.0f, 1.0f, 1.0f), mWorld, mSceneMgr));
+	qubes.push_back(new Qube(Vector3(-4.0f, 1.0f, -3.0f)+pos, Vector3(1.0f, 1.0f, 1.0f), mWorld, mSceneMgr));
 }

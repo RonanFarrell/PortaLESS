@@ -36,7 +36,7 @@ void RWM_P5::createScene(void)
 
     // Set ambient light
     mSceneMgr->setAmbientLight(Ogre::ColourValue(1.0, 1.0, 1.0));
-	mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_MODULATIVE);
+	//mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_MODULATIVE);
 
 	// Create the player
 	levelManager = new LevelManager(physics.GetPhysicsWorld(), mSceneMgr);
