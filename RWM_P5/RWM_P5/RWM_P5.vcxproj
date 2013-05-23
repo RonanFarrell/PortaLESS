@@ -118,6 +118,7 @@
   <ItemGroup>
     <ClInclude Include="include\BaseApplication.h" />
     <ClInclude Include="include\BuildingBlock.h" />
+    <ClInclude Include="include\Extrusion.h" />
     <ClInclude Include="include\Havok.h" />
     <ClInclude Include="include\LevelManager.h" />
     <ClInclude Include="include\Physics.h" />
@@ -132,6 +133,7 @@
   <ItemGroup>
     <ClCompile Include="include\LevelManager.cpp" />
     <ClCompile Include="src\BaseApplication.cpp" />
+    <ClCompile Include="src\Extrusion.cpp" />
     <ClCompile Include="src\Physics.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Pulley.cpp" />
