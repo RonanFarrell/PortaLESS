@@ -26,6 +26,7 @@ Pulley::Pulley(Vector3 pivotPos1, Vector3 pivotPos2, hkpWorld * world, SceneMana
 	hkpRigidBodyCinfo containerInfo;
 	containerInfo.m_shape = containerShape;
 	containerInfo.m_mass = 200.0f;
+	containerInfo.m_friction = 1.0f;
 	hkpInertiaTensorComputer::setShapeVolumeMassProperties(containerShape, containerInfo.m_mass, containerInfo);
 	containerInfo.m_motionType = hkpMotion::MOTION_BOX_INERTIA;
 	containerInfo.m_position.set(pivotPos2.x, pivotPos2.y - 2.0f, pivotPos2.z);
@@ -60,31 +61,51 @@ Pulley::Pulley(Vector3 pivotPos1, Vector3 pivotPos2, hkpWorld * world, SceneMana
 	constraint->removeReference();
 	pulley->removeReference();
 
+	hkpRigidBody * anchor0;
+	hkpRigidBody * anchor1;
 	// Add two helper bodies to prevent constrained bodies getting too close to the pulleys
 	hkpRigidBodyCinfo helperInfo;
 	helperInfo.m_motionType = hkpMotion::MOTION_FIXED;
 	helperInfo.m_position = worldPivots[0];
 	helperInfo.m_shape = new hkpSphereShape(0.3f);
-	hkpRigidBody * body = new hkpRigidBody(helperInfo);
-	mWorld->addEntity(body);
-	body->removeReference();
+	anchor0 = new hkpRigidBody(helperInfo);
+	mWorld->addEntity(anchor0);
 
 	helperInfo.m_position = worldPivots[1];
-	body = new hkpRigidBody(helperInfo);
-	mWorld->addEntity(body);
+	anchor1 = new hkpRigidBody(helperInfo);
+	mWorld->addEntity(anchor1);
 
-	body->removeReference();
 	helperInfo.m_shape->removeReference();
 
 	// Lock the orientation of the body
-	mMoveableBody0->setMaxAngularVelocity(0.0f);
-	mMoveableBody1->setMaxAngularVelocity(0.0f);
+	//mMoveableBody0->setMaxAngularVelocity(0.0f);
+	//mMoveableBody1->setMaxAngularVelocity(0.0f);
+
+	// Create prismatic constraint
+	hkVector4 axis(0.0f, 1.0f, 0.0f);
+	hkpPrismaticConstraintData * prismatic = new hkpPrismaticConstraintData();
+	prismatic->setMaxLinearLimit(20.0f);
+	prismatic->setMinLinearLimit(-20.0f);
+	prismatic->setInWorldSpace(mMoveableBody1->getTransform(), anchor1->getTransform(), worldPivots[1], axis);
+	hkpConstraintInstance * prismaticConstraint = new hkpConstraintInstance(mMoveableBody1, anchor1, prismatic);
+	mWorld->addConstraint(prismaticConstraint);
+	prismaticConstraint->removeReference();
+	prismatic->removeReference();
+
+	prismatic = new hkpPrismaticConstraintData();
+	prismatic->setMaxLinearLimit(20.0f);
+	prismatic->setMinLinearLimit(-20.0f);
+	prismatic->setInWorldSpace(mMoveableBody1->getTransform(), anchor1->getTransform(), worldPivots[0], axis);
+	prismaticConstraint = new hkpConstraintInstance(mMoveableBody0, anchor0, prismatic);
+	mWorld->addConstraint(prismaticConstraint);
+	prismaticConstraint->removeReference();
+	prismatic->removeReference();
 
 	{
 		mMesh0 = mSceneMgr->createEntity("pulley0", "cube.mesh");
 		AxisAlignedBox aab = mMesh0->getBoundingBox();
 		mMesh0->setCastShadows(true);
-		mMesh0->setMaterialName("Examples/CubeDefault");
+		mMesh0->setMaterialName("Examples/Wall");
 
 		Vector3 meshSize = aab.getSize();
 		Vector3 scaling = Vector3(2.0f, 3.0f, 1.0f) / meshSize;

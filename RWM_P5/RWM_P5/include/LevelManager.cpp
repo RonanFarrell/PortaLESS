@@ -102,7 +102,8 @@ void LevelManager::createRoom2(Vector3 pos) {
 	buildingBlocks.push_back(new BuildingBlock(Vector3(0.0f, 8.5f, -8.5f)+pos, Vector3(2.0f, 1.0f, 1.0f), "Examples/Wall", mWorld, mSceneMgr));
 	// Roof
 	buildingBlocks.push_back(new BuildingBlock(Vector3(0.0f, 9.5f, 0.0f)+pos, Vector3(10.0f, 1.0f, 16.0f), "Examples/Wall", mWorld, mSceneMgr));
-
+	// Qube
+	qubes.push_back(new Qube(Vector3(2.0f, 2.0f, 0.0f)+pos, Vector3(1.0f, 1.0f, 1.0f), mWorld, mSceneMgr));
 	// SeeSaw
 	seeSaws.push_back(new SeeSaw(Vector3(0.0f, 2.0f, -2.0f)+pos, Vector3(2.0f, 0.1f, 8.0f), Vector3(1.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, 1.5f), mWorld, mSceneMgr));
 }

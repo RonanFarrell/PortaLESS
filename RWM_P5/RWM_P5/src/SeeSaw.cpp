@@ -22,6 +22,7 @@ SeeSaw::SeeSaw (Vector3 pos, Vector3 size, Vector3 axis, Vector3 pivotOffset, hk
 	info.m_inertiaTensor = massProperties.m_inertiaTensor;
 	info.m_centerOfMass = massProperties.m_centerOfMass;
 	info.m_motionType = hkpMotion::MOTION_BOX_INERTIA;
+	info.m_enableDeactivation = false;
 
 	mMoveablebody = new hkpRigidBody(info);
 	mWorld->addEntity(mMoveablebody);
@@ -54,7 +55,7 @@ SeeSaw::SeeSaw (Vector3 pos, Vector3 size, Vector3 axis, Vector3 pivotOffset, hk
 	mMesh = mSceneMgr->createEntity(entityName, "cube.mesh");
 	AxisAlignedBox aab = mMesh->getBoundingBox();
 	mMesh->setCastShadows(true);
-	mMesh->setMaterialName("Examples/CubeDefault");
+	mMesh->setMaterialName("Examples/Wall");
 
 	Vector3 meshSize = aab.getSize();
 	Vector3 scaling = size / meshSize;

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Physics/Dynamics/Constraint/Pulley/hkpPulleyConstraintData.h"
+#include "Physics/Dynamics/Constraint/Bilateral/Prismatic/hkpPrismaticConstraintData.h"
 
 using namespace Ogre;
 

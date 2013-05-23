@@ -16,7 +16,7 @@ Qube::Qube(Vector3 pos, Vector3 size, hkpWorld * world, SceneManager * sceneMgr)
 	qubeInfo.m_motionType	= hkpMotion::MOTION_BOX_INERTIA;
 	qubeInfo.m_qualityType = HK_COLLIDABLE_QUALITY_CRITICAL;
 	qubeInfo.m_restitution = 0.0;
-	qubeInfo.m_friction	= 0.5;
+	qubeInfo.m_friction	= 1.0f;
 	qubeInfo.m_mass = 100.0f;
 	qubeInfo.m_position	= qubePosition;
 	qubeInfo.m_shape = qubeShape;

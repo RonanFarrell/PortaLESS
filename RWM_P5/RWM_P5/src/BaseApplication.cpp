@@ -101,7 +101,7 @@ void BaseApplication::createCamera(void)
 
     // Position it at 500 in Z direction
     mCamera->setPosition(Ogre::Vector3(0,4.0,0));
-	mCamera->setDirection(0.0f, 0.0f, -1.0f);
+	mCamera->setDirection(0.0f, 0.0f, 1.0f);
     mCamera->setNearClipDistance(0.1);
 
 	int x = mCamera->getOrientation().getYaw().valueDegrees();
