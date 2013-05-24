@@ -28,6 +28,7 @@ public:
 	LevelManager();
 	LevelManager(hkpWorld * world, Ogre::SceneManager * sceneMgr);
 	~LevelManager();
+	BuildingBlock * controlWall;
 
 	void loadLevel1();
 

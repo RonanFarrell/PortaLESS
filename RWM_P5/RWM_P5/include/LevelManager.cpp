@@ -78,7 +78,7 @@ void LevelManager::createRoom1(Vector3 pos) {
 	// Right wall
 	buildingBlocks.push_back(new BuildingBlock(Vector3(6.5f, 5.0f, -1.0f)+pos, Vector3(1.0f, 8.0f, 18.0f), "Examples/Wall", mWorld, mSceneMgr));
 	// Back wall
-	buildingBlocks.push_back(new BuildingBlock(Vector3(0.0f, 5.0f, 8.5f)+pos, Vector3(12.0f, 8.0f, 1.0f), "Examples/Controls", mWorld, mSceneMgr));
+	/*buildingBlocks.push_back(new BuildingBlock(Vector3(0.0f, 5.0f, 8.5f)+pos, Vector3(12.0f, 8.0f, 1.0f), "Examples/Controls", mWorld, mSceneMgr));*/
 	// Roof
 	buildingBlocks.push_back(new BuildingBlock(Vector3(0.0f, 9.5f, -1.0f)+pos, Vector3(12.0f, 1.0f, 18.0f), "Examples/Wall", mWorld, mSceneMgr));
 }

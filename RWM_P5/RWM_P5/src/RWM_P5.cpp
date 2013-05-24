@@ -44,6 +44,13 @@ void RWM_P5::createScene(void)
 	player = new Player(Ogre::Vector3(0.0f, 2.0f, 0.0f), physics.GetPhysicsWorld(), mSceneMgr);
 	qube = new Qube(Ogre::Vector3(3.0f, 2.0f, 0.0f), Ogre::Vector3(1.0f, 1.0f, 1.0f), physics.GetPhysicsWorld(), mSceneMgr);
 	xi = new XInputManager();
+	xi->Update();
+
+	if (!xi->GetState(0).error) {
+		levelManager->controlWall = new BuildingBlock(Vector3(0.0f, 5.0f, 8.5f), Vector3(12.0f, 8.0f, 1.0f), "Examples/Controls_Controller", physics.GetPhysicsWorld(), mSceneMgr);
+	} else {
+		levelManager->controlWall = new BuildingBlock(Vector3(0.0f, 5.0f, 8.5f), Vector3(12.0f, 8.0f, 1.0f), "Examples/Controls", physics.GetPhysicsWorld(), mSceneMgr);
+	}
 }
 
 
