@@ -128,6 +128,7 @@
     <ClInclude Include="include\RWM_P5.h" />
     <ClInclude Include="include\SeeSaw.h" />
     <ClInclude Include="include\stdafx.h" />
+    <ClInclude Include="include\XInputManager.h" />
     <ClInclude Include="res\Resource.h" />
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +142,7 @@
     <ClCompile Include="src\RWM_P5.cpp" />
     <ClCompile Include="src\SeeSaw.cpp" />
     <ClCompile Include="src\stdafx.cpp" />
+    <ClCompile Include="src\XInputManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="docs\ReadMe.txt" />

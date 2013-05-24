@@ -29,6 +29,9 @@ bool rmb = false;
 bool mmb = false;
 bool jump = false;
 
+float horizontalSensitivity = 2.0f;
+float verticalSensitivity = 4.0f;
+
 
 //-------------------------------------------------------------------------------------
 BaseApplication::BaseApplication(void)
@@ -103,7 +106,7 @@ void BaseApplication::createCamera(void)
     mCamera->setPosition(Ogre::Vector3(0,4.0,0));
 	mCamera->setDirection(0.0f, 0.0f, 1.0f);
     mCamera->setNearClipDistance(0.1);	
-
+	mCamera->setFOVy(Radian(Degree(70).valueRadians()));
     mCameraMan = new OgreBites::SdkCameraMan(mCamera);   // create a default camera controller
 }
 //-------------------------------------------------------------------------------------
@@ -267,6 +270,35 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 
 	physics.Simulate(evt.timeSinceLastFrame);
 
+	xi->Update();
+
+	if (!xi->GetState(0).error) {
+
+		// Left stick, movement
+		if (xi->GetState(0).LeftStick.X > 30.0f || xi->GetState(0).LeftStick.X < -30.0f) {
+			LR = xi->GetState(0).LeftStick.X > 0 ? 1 : -1;
+		}
+		if (xi->GetState(0).LeftStick.Y > 30.0f || xi->GetState(0).LeftStick.Y < -30.0f) {
+			UD = xi->GetState(0).LeftStick.Y > 0 ? 1 : -1;
+		}
+
+		// Right Stick, looking
+		if (xi->GetState(0).RightStick.X > 30.0f || xi->GetState(0).RightStick.X < -30.0f) {
+			float dir = ((xi->GetState(0).RightStick.X / 128.0f) * horizontalSensitivity) * evt.timeSinceLastFrame * -1;
+			mCamera->yaw(Radian(dir));
+		}
+		if (xi->GetState(0).RightStick.Y > 30.0f || xi->GetState(0).RightStick.Y < -30.0f) {
+			float dir = (xi->GetState(0).RightStick.Y / 128.0f) * evt.timeSinceLastFrame;
+			mCamera->pitch(Radian(dir));
+		}
+
+		// Buttons and triggers
+		rmb = xi->GetState(0).LeftTrigger > 0.0f;
+		lmb = xi->GetState(0).RightTrigger > 0.0f;
+		mmb = xi->GetState(0).Buttons.RightShoulder || xi->GetState(0).Buttons.RightThumb;
+		jump = xi->GetState(0).Buttons.A;
+	}
+
 	levelManager->update();
 	player->update(UD, LR, lmb, rmb, mmb, jump, mCamera, evt.timeSinceLastFrame);
 	jump = false;
@@ -284,8 +316,8 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
         mCameraMan->frameRenderingQueued(evt);   // if dialog isn't up, then update the camera
         if (mDetailsPanel->isVisible())   // if details panel is visible, then update its contents
         {
-			mDetailsPanel->setParamValue(0, Ogre::StringConverter::toString(mCamera->getDirection().x));
-            mDetailsPanel->setParamValue(1, Ogre::StringConverter::toString(mCamera->getDirection().y));
+			mDetailsPanel->setParamValue(0, Ogre::StringConverter::toString(xi->GetState(0).RightStick.X));
+			mDetailsPanel->setParamValue(1, Ogre::StringConverter::toString(xi->GetState(0).RightStick.Y));
             mDetailsPanel->setParamValue(2, Ogre::StringConverter::toString(mCamera->getDirection().z));
             mDetailsPanel->setParamValue(4, Ogre::StringConverter::toString(mCamera->getDerivedOrientation().w));
             mDetailsPanel->setParamValue(5, Ogre::StringConverter::toString(mCamera->getDerivedOrientation().x));
@@ -293,6 +325,11 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
             mDetailsPanel->setParamValue(7, Ogre::StringConverter::toString(mCamera->getDerivedOrientation().z));
         }
     }
+
+	if (!xi->GetState(0).error) {
+		UD = 0;
+		LR = 0;
+	}
 
     return true;
 }

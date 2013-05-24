@@ -43,20 +43,18 @@ Player::Player(Vector3 spawnLocation, hkpWorld * world, SceneManager * sceneMgr)
 	hkpCharacterState * state;
 	hkpCharacterStateManager * manager = new hkpCharacterStateManager();
 
-	state = new hkpCharacterStateOnGround();
-	manager->registerState( state,	HK_CHARACTER_ON_GROUND);
-	state->removeReference();
+	hkpCharacterStateOnGround * groundState = new hkpCharacterStateOnGround();
+	groundState->setSpeed(7);
+	manager->registerState( groundState, HK_CHARACTER_ON_GROUND);
+	groundState->removeReference();
 
-	state = new hkpCharacterStateInAir();
-	manager->registerState( state,	HK_CHARACTER_IN_AIR);
-	state->removeReference();
+	hkpCharacterStateInAir * airState = new hkpCharacterStateInAir();
+	airState->setSpeed(7);
+	manager->registerState( airState,	HK_CHARACTER_IN_AIR);
+	airState->removeReference();
 
 	state = new hkpCharacterStateJumping();
 	manager->registerState( state,	HK_CHARACTER_JUMPING);
-	state->removeReference();
-
-	state = new hkpCharacterStateClimbing();
-	manager->registerState( state,	HK_CHARACTER_CLIMBING);
 	state->removeReference();
 
 	mCharacterContext = new hkpCharacterContext( manager, HK_CHARACTER_ON_GROUND );
