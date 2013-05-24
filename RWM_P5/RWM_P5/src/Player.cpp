@@ -81,7 +81,7 @@ void Player::update(int UD, int LR, bool lmb, bool rmb, bool mmb, bool jump, Cam
 	mWorld->lock();
 
 	hkVector4 pos = mCharacterBody->getRigidBody()->getPosition();
-
+	mCurrentAngle = (hkReal)cam->getOrientation().getYaw().valueRadians();
 	mCurrentOrientation.setAxisAngle(hkVector4(0, 1, 0), mCurrentAngle);
 	
 	hkpCharacterInput input;
@@ -114,15 +114,12 @@ void Player::update(int UD, int LR, bool lmb, bool rmb, bool mmb, bool jump, Cam
 
 	mWorld->unlock();
 
-	//mCurrentOrientation.setAxisAngle(hkVector4(0, 1, 0), mCurrentAngle+(HK_REAL_PI / 2));
-	float yaw = cam->getOrientation().getYaw().valueRadians() + (HK_REAL_PI / 2);
-	float pitch = cam->getOrientation().getPitch().valueRadians();
-	hkQuaternion qY(hkVector4(0, 1, 0), yaw);
-	hkQuaternion qX(hkVector4(1, 0, 0), pitch);
-	qX.mul(qY);
-	mTransform = hkTransform(qX, pos);
+	Quaternion qO;
+	qO = Vector3(1, 0, 0).getRotationTo(cam->getDirection());
+	hkQuaternion q(qO.x, qO.y, qO.z, qO.w);
+	mTransform = hkTransform(q, pos);
 
-	// Hack to simulate dropping an object. Set throw velovity and 
+	// Hack to simulate dropping an object. Set throw velovity and
 	// impulse applied to zero so whatever you're holding drops at
 	// your feet
 	if (mmb && !mGravityGun->m_grabbedBodies.isEmpty()) {
