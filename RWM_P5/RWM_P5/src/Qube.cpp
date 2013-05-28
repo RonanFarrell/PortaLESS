@@ -28,6 +28,7 @@ Qube::Qube(Vector3 pos, Vector3 size, hkpWorld * world, SceneManager * sceneMgr)
 
 	mBody = new hkpRigidBody(qubeInfo);
 	mWorld->addEntity(mBody);
+	mBody->enableDeactivation(false);
 	qubeShape->removeReference();
 
 	char entityName[] = "000QubeEntity";

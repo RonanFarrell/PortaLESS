@@ -29,7 +29,7 @@ bool rmb = false;
 bool mmb = false;
 bool jump = false;
 
-float horizontalSensitivity = 2.0f;
+float horizontalSensitivity = 4.0f;
 float verticalSensitivity = 4.0f;
 
 
@@ -288,7 +288,7 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			mCamera->yaw(Radian(dir));
 		}
 		if (xi->GetState(0).RightStick.Y > 30.0f || xi->GetState(0).RightStick.Y < -30.0f) {
-			float dir = (xi->GetState(0).RightStick.Y / 128.0f) * evt.timeSinceLastFrame;
+			float dir = ((xi->GetState(0).RightStick.Y / 128.0f) * verticalSensitivity) * evt.timeSinceLastFrame;
 			mCamera->pitch(Radian(dir));
 		}
 

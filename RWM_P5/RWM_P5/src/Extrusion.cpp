@@ -41,7 +41,7 @@ Extrusion::Extrusion(Vector3 pos, Vector3 size, Vector3 axis, float extrusionTra
 	entityName[0] += numExtrusions;
 	mMesh = mSceneMgr->createEntity(entityName, "cube.mesh");
 	AxisAlignedBox aab = mMesh->getBoundingBox();
-	mMesh->setMaterialName("Examples/Wall");
+	mMesh->setMaterialName("Examples/CubeDefault");
 
 	Vector3 meshSize = aab.getSize();
 	Vector3 scaling = size / meshSize;
